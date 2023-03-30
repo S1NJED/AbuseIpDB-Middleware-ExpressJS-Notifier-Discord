@@ -49,6 +49,11 @@ async function abuseIpCheck(req, res, next) {
         ipCache[ipAddress] = {count: 1};
     }
     writeCache(ipCache, cacheFilename);
+    
+    if (json['errors']) {
+        console.error(json['errors'][0]['status'], json['errors'][0]['detail']);
+        return 1;
+    }
 
     json['method'] = method;
     json['endpoint'] = endpoint;
